@@ -2,6 +2,8 @@ const mysql = require('mysql');
 const express = require('express');
 const session = require('express-session');
 const path = require('path');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 const connection = mysql.createConnection({
 	host     : 'localhost',
     port     : '3307',
@@ -26,7 +28,6 @@ app.get('/', function(request, response) {
 	// Render login template
 	response.sendFile(path.join(__dirname + '/login.html'));
 });
-
 // http://localhost:3000/auth
 app.post('/auth', function(request, response) {
 	// Capture the input fields
@@ -34,27 +35,67 @@ app.post('/auth', function(request, response) {
 	let password = request.body.password;
 	// Ensure the input fields exists and are not empty
 	if (username && password) {
-		// Execute SQL query that'll select the account from the database based on the specified username and password
-		connection.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
-			// If there is an issue with the query, output the error
-			if (error) throw error;
-			// If the account exists
-			if (results.length > 0) {
-				// Authenticate the user
-				request.session.loggedin = true;
-				request.session.username = username;
-				// Redirect to home page
-				response.redirect('/home');
-			} else {
-				response.send('Incorrect Username and/or Password!');
-			}			
-			response.end();
-            
-		});
-	} else {
-		response.send('Please enter Username and Password!');
-		response.end();
-	}
+        // Execute SQL query that'll select the account from the database based on the specified username
+        connection.query('SELECT * FROM Users WHERE Username = ?', [username], function(error, results, fields) {
+            // If there is an issue with the query, output the error
+            if (error) throw error;
+            // If the account exists
+            if (results.length > 0) {
+                // Compare the hashed password
+                bcrypt.compare(password, results[0].Password, function(err, result) {
+                    if (result) {
+                        // Authenticate the user
+                        request.session.loggedin = true;
+                        request.session.username = username;
+                        // Redirect to home page
+                        response.redirect('/home');
+                    } else {
+                        response.send('Incorrect Username and/or Password!');
+                    }
+                });
+            } else {
+                response.send('Incorrect Username and/or Password!');
+            }
+            response.end();
+        });
+    } else {
+        response.send('Please enter Username and Password!');
+        response.end();
+    }
+});
+// Render sign-up page
+app.get('/signup', function(request, response) {
+    response.sendFile(path.join(__dirname + '/signup.html'));
+});
+
+// Handle user registration
+app.post('/register', function(request, response) {
+    // Capture the input fields
+    let username = request.body.username;
+    let email = request.body.email;
+    let phoneNumber = request.body.phoneNumber;
+    let location = request.body.location;
+    let password = request.body.password;
+    let notificationPreference = request.body.notificationPreference;
+    
+    // Ensure the input fields exists and are not empty
+    if (username && email && phoneNumber && location && password && notificationPreference) {
+        // Hash the password before storing it
+        bcrypt.hash(password, saltRounds, function(err, hash) {
+            if (err) throw err;
+            // Execute SQL query to insert new user into the database
+            connection.query('INSERT INTO Users (Username, Email, PhoneNumber, Location, Password, NotificationPreference) VALUES (?, ?, ?, ?, ?, ?)', 
+                [username, email, phoneNumber, location, hash, notificationPreference], function(error, results, fields) {
+                // If there is an issue with the query, output the error
+                if (error) throw error;
+                // Redirect to login page
+                response.redirect('/');
+            });
+        });
+    } else {
+        response.send('Please fill all the fields!');
+        response.end();
+    }
 });
 
 // http://localhost:3000/home

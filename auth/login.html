@@ -10,20 +10,26 @@
         <link href="/style.css" rel="stylesheet" type="text/css">
 	</head>
 	<body>
-		<div class="login">
-			<h1>Login</h1>
-			<form action="/auth" method="post">
-				<label for="username">
-					<!-- font awesome icon -->
-					<i class="fas fa-user"></i>
-				</label>
-				<input type="text" name="username" placeholder="Username" id="username" required>
-				<label for="password">
-					<i class="fas fa-lock"></i>
-				</label>
-				<input type="password" name="password" placeholder="Password" id="password" required>
-				<input type="submit" value="Login">
-			</form>
+		<div class="form_wrapper">
+			<div class="form_container">
+				<div class="title_container">
+					<h2>Login</h2>
+				</div>
+				<div class="row clearfix">
+					<div class="">
+						<form action="/auth" method="post">
+							<div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
+								<input type="text" name="username" placeholder="Username" required />
+							</div>
+							<div class="input_field"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+								<input id="password" type="password" name="password" placeholder="Password" required />
+							</div>
+							<input class="button" type="submit" value="Login" />
+							<h5>Don't have an account?<i> <a href="/signup">Sign up</a></i></h5>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>
