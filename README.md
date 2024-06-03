@@ -34,7 +34,7 @@ npm install
 
 3. Set up MySQL database:
 
-- Create a MySQL database and update the database configuration in `app.js` file.
+- Create a MySQL database and update the database configuration in `login.js` file.
 - Run the SQL script provided in `database.sql` to create the required tables.
 
 4. Start the application:
@@ -65,5 +65,3 @@ Contributions are welcome! Please feel free to submit bug reports, feature reque
 This project is licensed under the [MIT License](LICENSE).
 
 ---
-
-You can customize this README by adding more details about your project, such as additional features, deployment instructions, or usage examples.
