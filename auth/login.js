@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const connection = mysql.createConnection({
 	host     : 'localhost',
-    port     : '3307',
+    port     : '3308',
 	user     : 'root',
 	password : 'root',
 	database : 'flood'
@@ -30,39 +30,49 @@ app.get('/', function(request, response) {
 });
 // http://localhost:3000/auth
 app.post('/auth', function(request, response) {
-	// Capture the input fields
-	let username = request.body.username;
-	let password = request.body.password;
-	// Ensure the input fields exists and are not empty
-	if (username && password) {
-        // Execute SQL query that'll select the account from the database based on the specified username
+    // Capture the input fields
+    let username = request.body.username;
+    let password = request.body.password;
+    
+    // Ensure the input fields exist and are not empty
+    if (username && password) {
+        // Execute SQL query to select the account from the database based on the specified username
         connection.query('SELECT * FROM Users WHERE Username = ?', [username], function(error, results, fields) {
             // If there is an issue with the query, output the error
-            if (error) throw error;
+            if (error) {
+                console.error('Database query error:', error);
+                return response.status(500).send('Internal Server Error');
+            }
+            
             // If the account exists
             if (results.length > 0) {
                 // Compare the hashed password
                 bcrypt.compare(password, results[0].Password, function(err, result) {
+                    if (err) {
+                        // Handle the error appropriately
+                        console.error('Error comparing passwords:', err);
+                        return response.status(500).send('Internal Server Error');
+                    }
+                
                     if (result) {
                         // Authenticate the user
                         request.session.loggedin = true;
                         request.session.username = username;
                         // Redirect to home page
-                        response.redirect('/home');
+                        return response.redirect('/home');
                     } else {
-                        response.send('Incorrect Username and/or Password!');
+                        return response.send('Incorrect Username and/or Password!');
                     }
                 });
             } else {
-                response.send('Incorrect Username and/or Password!');
+                return response.send('Incorrect Username and/or Password!');
             }
-            response.end();
         });
     } else {
         response.send('Please enter Username and Password!');
-        response.end();
     }
 });
+
 // Render sign-up page
 app.get('/signup', function(request, response) {
     response.sendFile(path.join(__dirname + '/signup.html'));
