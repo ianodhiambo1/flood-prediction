@@ -34,13 +34,13 @@ npm install
 
 3. Set up MySQL database:
 
-- Create a MySQL database and update the database configuration in `login.js` file.
+- Create a MySQL database and update the database configuration in `app.js` file.
 - Run the SQL script provided in `database.sql` to create the required tables.
 
 4. Start the application:
 
 ```
-node auth/login.js
+nodemon app.js // node app.js
 ```
 
 5. Access the application in your web browser:
@@ -52,7 +52,7 @@ http://localhost:3000/
 ## Usage
 
 - Navigate to the registration page (`/signup`) to create a new account.
-- Log in to your account using the login page (`/`).
+- Log in to your account using the login page (`/login`).
 - After logging in, you will be redirected to the home page (`/home`), where you can view flood predictions and manage your account settings.
 - You will receive notifications about potential flood risks based on your selected notification preferences.
 
