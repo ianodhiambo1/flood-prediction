@@ -40,7 +40,7 @@ npm install
 4. Start the application:
 
 ```
-node app.js
+node auth/login.js
 ```
 
 5. Access the application in your web browser:
