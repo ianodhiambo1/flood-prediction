@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Flood Prediction & Disaster Management</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Flood Prediction & Disaster Management">
+    <meta name="author" content="Ian-Odhiambo, Johnwillis Alande">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .card img {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .section {
+            padding: 60px 0;
+        }
+
+        .carousel-item .card {
+            margin: 0 auto;
+            max-width: 600px;
+        }
+
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 5%;
+        }
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            padding: 10px;
+        }
+
+        .carousel-control-prev-icon:hover,
+        .carousel-control-next-icon:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .carousel-control-prev-icon::after,
+        .carousel-control-next-icon::after {
+            font-size: 30px;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <section class="section bg-light">
+            <div class="container">
+                <h2 class="text-center mb-4">Flood Safety Tips</h2>
+                <div id="floodSafetyCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="card">
+                                <img src="images/img_21.jpeg" class="card-img-top" alt="Tip 1">
+                                <div class="card-body">
+                                    <h5 class="card-title">Tip 1</h5>
+                                    <p class="card-text">Stay Informed</p>
+                                    <p class="card-text">Listen to local news for flood updates and evacuation instructions.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="card">
+                                <img src="images/img_22.jpeg" class="card-img-top" alt="Tip 2">
+                                <div class="card-body">
+                                    <h5 class="card-title">Tip 2</h5>
+                                    <p class="card-text">Evacuate if Advised</p>
+                                    <p class="card-text">Leave immediately if local authorities recommend it.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="card">
+                                <img src="images/img_23.jpeg" class="card-img-top" alt="Tip 3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Tip 3</h5>
+                                    <p class="card-text">Avoid floodwaters</p>
+                                    <p class="card-text">Do not walk, swim, or drive through floodwaters.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="card">
+                                <img src="images/img_24.jpeg" class="card-img-top" alt="Tip 4">
+                                <div class="card-body">
+                                    <h5 class="card-title">Tip 4</h5>
+                                    <p class="card-text">Move to Higher Ground.</p>
+                                    <p class="card-text">In case of an incoming flood, move towards a higher ground to stay safe.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="card">
+                                <img src="images/img_25.jpg" class="card-img-top" alt="Tip 5">
+                                <div class="card-body">
+                                    <h5 class="card-title">Tip 5</h5>
+                                    <p class="card-text">Turn Off Utilities</p>
+                                    <p class="card-text">If safe, turn off gas, electricity, and water to prevent accidents.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="card">
+                                <img src="images/img_26.jpeg" class="card-img-top" alt="Tip 6">
+                                <div class="card-body">
+                                    <h5 class="card-title">Tip 6</h5>
+                                    <p class="card-text">Avoid Contaminated Water.</p>
+                                    <p class="card-text">Do not use floodwater for drinking, cooking or hygiene as it is not safe.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="card">
+                                <img src="images/img_27.jpg" class="card-img-top" alt="Tip 7">
+                                <div class="card-body">
+                                    <h5 class="card-title">Tip 7</h5>
+                                    <p class="card-text">Report Any Incidents.</p>
+                                    <p class="card-text">Report any emergencies, damages and share information with your local authorities.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#floodSafetyCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#floodSafetyCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="text-center mb-4">Weather Updates</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Current Flood Updates</h5>
+                        <p class="card-text">Kisumu: Heavy rainfall expected.</p>
+                        <p class="card-text">Nakuru: Moderate flooding in low-lying areas.</p>
+                        <p class="card-text">Budalangi: Evacuation orders in place.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section bg-light">
+            <div class="container">
+                <h2 class="text-center mb-4">Emergency Assistance Request and Update Platform</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Request Assistance</h5>
+                                <form>
+                                    <div class="mb-3">
+                                        <label for="issueAssistance" class="form-label">Details of Assistance Needed</label>
+                                        <textarea class="form-control" id="issueAssistance" rows="3"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Submit Request</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Send Information Update</h5>
+                                <form>
+                                    <div class="mb-3">
+                                        <label for="informationUpdate" class="form-label">Tell us more about the weather where you are</label>
+                                        <textarea class="form-control" id="informationUpdate" rows="3"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Submit Details</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="text-center mb-4">Interactive Communication Tools</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Live Chat Support</h5>
+                                <p class="card-text">Connect with our support team for live assistance.</p>
+                                <button class="btn btn-primary">Start Chat</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Community Forum</h5>
+                                <p class="card-text">Share experiences and get advice from others.</p>
+                                <button class="btn btn-primary">Join Forum</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section bg-light">
+            <div class="container">
+                <h2 class="text-center mb-4">Volunteer and Donation Coordination</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">How You Can Help</h5>
+                        <p class="card-text">Sign up to volunteer or donate to support flood relief efforts.</p>
+                        <button class="btn btn-primary">Volunteer</button>
+                        <button class="btn btn-primary">Donate</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.animateNumber.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const connection = mysql.createConnection({
 	host     : 'localhost',
-    port     : '3307', /// Change this to your MySQL port
+    port     : '3308',
 	user     : 'root',
 	password : 'root',
 	database : 'flood'
@@ -34,6 +34,15 @@ app.get('/signup', function(request, response) {
 });
 app.get('/home', function(request, response) {
 	response.sendFile(path.join(__dirname, 'views', '/plain.html'));
+});
+app.get('/map', function(request, response) {
+	response.sendFile(path.join(__dirname, 'views', '/map.html'));
+});
+app.get('/disastermanagement', function(request, response) {
+	response.sendFile(path.join(__dirname, 'views', '/disastermanagement.html'));
+});
+app.get('/weather', function(request, response) {
+	response.sendFile(path.join(__dirname, 'views', '/weather.html'));
 });
 
 app.post('/auth', function(request, response) {
