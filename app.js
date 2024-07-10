@@ -5,11 +5,11 @@ const path = require("path");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const connection = mysql.createConnection({
-  host: "localhost",
-  port: "3307", /// Change this to your MySQL port
-  user: "root",
-  password: "root",
-  database: "flood",
+	host     : 'localhost',
+    port     : '3308',
+	user     : 'root',
+	password : 'root',
+	database : 'flood'
 });
 const app = express();
 const port = 3000;
@@ -42,6 +42,15 @@ app.get("/home", function (request, response) {
   } else {
     response.redirect("/login");
   }
+});
+app.get('/map', function(request, response) {
+	response.sendFile(path.join(__dirname, 'views', '/map.html'));
+});
+app.get('/disastermanagement', function(request, response) {
+	response.sendFile(path.join(__dirname, 'views', '/disastermanagement.html'));
+});
+app.get('/weather', function(request, response) {
+	response.sendFile(path.join(__dirname, 'views', '/weather.html'));
 });
 
 app.post("/auth", function (request, response) {
