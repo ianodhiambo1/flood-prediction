@@ -25,7 +25,7 @@
         </div>
         <div class="defra-flood-warnings-list-item__description">
           <a href="/target-area/<%= item.Location %>" class="defra-flood-warnings-list-item__title">
-            Groundwater flooding in <%= item.Location %>
+            <%= item.FloodType %> in <%= item.Location %>
           </a>
           <span class="defra-flood-warnings-list-item__meta">
             Updated <time datetime="<%= item.updatedTime %>"><%= new Date(item.PredictionTime).toLocaleString() %></time>

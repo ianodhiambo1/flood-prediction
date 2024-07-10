@@ -125,7 +125,7 @@ app.post("/register", function (request, response) {
   }
 });
 app.get("/flood-warnings", (req, res) => {
-  const query = "SELECT * FROM predictions";
+  const query = "SELECT * FROM predictions ORDER BY CreatedAt DESC LIMIT 4";
 
   connection.query(query, (err, results) => {
     if (err) {
