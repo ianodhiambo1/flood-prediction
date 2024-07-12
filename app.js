@@ -133,6 +133,59 @@ app.post("/register", function (request, response) {
     response.end();
   }
 });
+app.post("/urgency", function (request, response) {
+  let username = request.body.username;
+  let phoneNumber = request.body.phoneNumber;
+  let location = request.body.location;
+  let urgency = request.body.urgency;
+
+  if (
+    username &&
+    phoneNumber &&
+    location &&
+    urgency
+  ) {
+    connection.query(
+        "INSERT INTO UserRequest (Username, PhoneNumber, Location, Urgency) VALUES (?, ?, ?, ?)",
+        [username, phoneNumber, location, urgency],
+        function (error, results, fields) {
+          if (error) throw error;
+          response.redirect("/disastermanagement");
+        }
+      );
+  } else {
+    response.send("Please fill all the fields!");
+    response.end();
+  }
+});
+app.post('/update', function (request, response) {
+  const username = request.body.username;
+  const location = request.body.location;
+  const updates = request.body.updates;  
+
+  if (username && location && updates) {
+    connection.query(
+      'INSERT INTO Updates (Username, Location, Updates) VALUES (?, ?, ?)',
+      [username, location, updates],
+      function (error, results, fields) {
+        if (error) throw error;
+        response.redirect('/disastermanagement');
+      }
+    );
+  } else {
+    response.send('Please fill all the fields!');
+  }
+});
+
+app.get('/weather-updates', function (request, response) {
+  connection.query(
+    'SELECT Username, Location, Updates, Timestamp FROM Updates ORDER BY UpdateID DESC LIMIT 3', // Assuming you want the latest 3 updates
+    function (error, results, fields) {
+      if (error) throw error;
+      response.json(results);
+    }
+  );
+});
 app.get("/flood-warnings", (req, res) => {
   const query = "SELECT * FROM predictions ORDER BY CreatedAt DESC LIMIT 4";
 
