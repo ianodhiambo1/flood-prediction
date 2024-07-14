@@ -58,3 +58,20 @@ VALUES
 ('Madaraka', 0.5, 0.8, 0.6, 0.7, 0.4, 0.6, 0.7, 0.5),
 ('Westlands', 0.6, 0.7, 0.5, 0.6, 0.3, 0.5, 0.6, 0.4),
 ('Parklands', 0.4, 0.6, 0.4, 0.5, 0.2, 0.4, 0.5, 0.3);
+
+
+CREATE TABLE IF NOT EXISTS UserRequest (
+    UserID INT AUTO_INCREMENT PRIMARY KEY,
+    Username VARCHAR(255) NOT NULL,
+    PhoneNumber VARCHAR(20),
+    Location VARCHAR(100) NOT NULL,
+    Urgency VARCHAR(1000) NOT NULL,
+);
+
+CREATE TABLE IF NOT EXISTS Updates (
+    UpdateID INT AUTO_INCREMENT PRIMARY KEY,
+    Username VARCHAR(255) NOT NULL,
+    Location VARCHAR(100) NOT NULL,
+    Updates TEXT NOT NULL,
+    Timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

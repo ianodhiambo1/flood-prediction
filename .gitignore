@@ -128,3 +128,12 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+# maps
+*.osm
+
+# ssl
+*.key
+*.crt
+*.pem
+
+
