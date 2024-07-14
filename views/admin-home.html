@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        *{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+body{
+    font-family: Helvetica;
+    -webkit-font-smoothing: antialiased;
+    background: rgba( 71, 147, 227, 1);
+}
+h2{
+    text-align: center;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: white;
+    padding: 30px 0;
+}
+
+/* Table Styles */
+
+.table-wrapper{
+    margin: 10px 70px 70px;
+    box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
+}
+
+.fl-table {
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: normal;
+    border: none;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100%;
+    white-space: nowrap;
+    background-color: white;
+}
+
+.fl-table td, .fl-table th {
+    text-align: center;
+    padding: 8px;
+}
+
+.fl-table td {
+    border-right: 1px solid #f8f8f8;
+    font-size: 12px;
+}
+
+.fl-table thead th {
+    color: #ffffff;
+    background: #4FC3A1;
+}
+
+
+.fl-table thead th:nth-child(odd) {
+    color: #ffffff;
+    background: #324960;
+}
+
+.fl-table tr:nth-child(even) {
+    background: #F8F8F8;
+}
+
+/* Responsive */
+
+@media (max-width: 767px) {
+    .fl-table {
+        display: block;
+        width: 100%;
+    }
+    .table-wrapper:before{
+        content: "Scroll horizontally >";
+        display: block;
+        text-align: right;
+        font-size: 11px;
+        color: white;
+        padding: 0 0 10px;
+    }
+    .fl-table thead, .fl-table tbody, .fl-table thead th {
+        display: block;
+    }
+    .fl-table thead th:last-child{
+        border-bottom: none;
+    }
+    .fl-table thead {
+        float: left;
+    }
+    .fl-table tbody {
+        width: auto;
+        position: relative;
+        overflow-x: auto;
+    }
+    .fl-table td, .fl-table th {
+        padding: 20px .625em .625em .625em;
+        height: 60px;
+        vertical-align: middle;
+        box-sizing: border-box;
+        overflow-x: hidden;
+        overflow-y: auto;
+        width: 120px;
+        font-size: 13px;
+        text-overflow: ellipsis;
+    }
+    .fl-table thead th {
+        text-align: left;
+        border-bottom: 1px solid #f7f7f9;
+    }
+    .fl-table tbody tr {
+        display: table-cell;
+    }
+    .fl-table tbody tr:nth-child(odd) {
+        background: none;
+    }
+    .fl-table tr:nth-child(even) {
+        background: transparent;
+    }
+    .fl-table tr td:nth-child(odd) {
+        background: #F8F8F8;
+        border-right: 1px solid #E6E4E4;
+    }
+    .fl-table tr td:nth-child(even) {
+        border-right: 1px solid #E6E4E4;
+    }
+    .fl-table tbody td {
+        display: block;
+        text-align: center;
+    }
+}
+@import url('https://fonts.googleapis.com/css?family=PT+Sans');
+
+body{
+  background: #fff;
+  font-family: 'PT Sans', sans-serif;
+}
+h2{
+  padding-top: 1.5rem;
+}
+a{
+  color: #333;
+}
+a:hover{
+  color: #da5767;
+  text-decoration: none;
+}
+.card{
+  border: 0.40rem solid #f8f9fa;
+  top: 10%;
+}
+.form-control{
+  background-color: #f8f9fa;
+  padding: 20px;
+  padding: 25px 15px;
+  margin-bottom: 1.3rem;
+}
+
+.form-control:focus {
+
+    color: #000000;
+    background-color: #ffffff;
+    border: 3px solid #da5767;
+    outline: 0;
+    box-shadow: none;
+
+}
+
+.btn{
+  padding: 0.6rem 1.2rem;
+  background: #da5767;
+  border: 2px solid #da5767;
+}
+.btn-primary:hover {
+
+    
+    background-color: #df8c96;
+    border-color: #df8c96;
+  transition: .3s;
+
+}
+    </style>
+</head>
+<body>
+    <h2>User Data</h2>
+    <div class="table-wrapper">
+        <table class="fl-table">
+            <thead>
+                <tr>
+                    <th>UserID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>PhoneNumber</th>
+                    <th>Location</th>
+                    <th>CreatedAt</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody id="userTableBody">
+                <!-- Users will be dynamically populated here -->
+            </tbody>
+        </table>
+    </div>
+    <button onclick="showForm()">Create User</button>
+
+    <div class="container" id="userFormContainer" style="display:none;">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="card">
+                    <h2 class="card-title text-center">User Form</h2>
+                    <div class="card-body py-md-4">
+                        <form id="userForm" onsubmit="saveUser(event)" >
+                            <input type="hidden" id="userId">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="username" placeholder="Username" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control" id="email" placeholder="Email" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="phoneNumber" placeholder="Phone Number" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="location" placeholder="Location" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" id="password" placeholder="Password" required>
+                            </div>
+                            <div class="d-flex flex-row align-items-center justify-content-between">
+                                <button type="button" onclick="hideForm()" class="btn btn-secondary">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', loadUsers);
+
+const userFormContainer = document.getElementById('userFormContainer');
+const userForm = document.getElementById('userForm');
+const userTableBody = document.getElementById('userTableBody');
+
+
+
+function showForm() {
+    userForm.reset();
+    userFormContainer.style.display = 'block';
+}
+
+function hideForm() {
+    userFormContainer.style.display = 'none';
+}
+
+function loadUsers() {
+    fetch('http://localhost:3000/users')
+        .then(response => response.json())
+        .then(data => {
+            userTableBody.innerHTML = '';
+            data.forEach(user => {
+                let row = `<tr>
+                    <td>${user.UserID}</td>
+                    <td>${user.Username}</td>
+                    <td>${user.Email}</td>
+                    <td>${user.PhoneNumber}</td>
+                    <td>${user.Location}</td>
+                    <td>${user.CreatedAt}</td>
+                    <td><button onclick="editUser(${user.UserID})">Edit</button></td>
+                    <td><button onclick="deleteUser(${user.UserID})">Delete</button></td>
+                </tr>`;
+                userTableBody.innerHTML += row;
+            });
+        });
+}
+
+function saveUser(event) {
+    event.preventDefault();
+
+    const userId = document.getElementById('userId').value;
+    const user = {
+        Username: document.getElementById('username').value,
+        Email: document.getElementById('email').value,
+        PhoneNumber: document.getElementById('phoneNumber').value,
+        Location: document.getElementById('location').value,
+        Password: document.getElementById('password').value
+    };
+
+    let url = 'http://localhost:3000/users';
+    let method = 'POST';
+
+    if (userId) {
+        // If userId is present, it's an update
+        url += `/${userId}`;
+        method = 'PUT';
+    }
+
+    fetch(url, {
+        method: method,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+
+            window.location.reload();
+        
+    })
+    .catch(error => {
+        console.error('Error saving user:', error);
+    });
+}
+
+
+
+function editUser(id) {
+    fetch(`http://localhost:3000/users/${id}`)
+        .then(response => response.json())
+        .then(users => {
+            if (users.length > 0) {
+                const user = users[0]; // Access the first element
+                showForm();
+                document.getElementById('userId').value = user.UserID;
+                document.getElementById('username').value = user.Username;
+                document.getElementById('email').value = user.Email;
+                document.getElementById('phoneNumber').value = user.PhoneNumber;
+                document.getElementById('location').value = user.Location;
+                document.getElementById('password').value = user.Password;
+            } else {
+                console.error('No user found with the given ID');
+            }
+        })
+        .catch(error => console.error('Error fetching user:', error));
+}
+
+function deleteUser(id) {
+    fetch(`http://localhost:3000/users/${id}`, {
+        method: 'DELETE'
+    }).then(() => loadUsers());
+}
+
+    </script>
+</body>
+</html>

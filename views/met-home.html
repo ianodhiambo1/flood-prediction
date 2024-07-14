@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metrologist Page</title>
+    <style>
+        *{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+body{
+    font-family: Helvetica;
+    -webkit-font-smoothing: antialiased;
+    background: rgba( 71, 147, 227, 1);
+}
+h2{
+    text-align: center;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: white;
+    padding: 30px 0;
+}
+
+/* Table Styles */
+
+.table-wrapper{
+    margin: 10px 70px 70px;
+    box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
+}
+
+.fl-table {
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: normal;
+    border: none;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100%;
+    white-space: nowrap;
+    background-color: white;
+}
+
+.fl-table td, .fl-table th {
+    text-align: center;
+    padding: 8px;
+}
+
+.fl-table td {
+    border-right: 1px solid #f8f8f8;
+    font-size: 12px;
+}
+
+.fl-table thead th {
+    color: #ffffff;
+    background: #4FC3A1;
+}
+
+
+.fl-table thead th:nth-child(odd) {
+    color: #ffffff;
+    background: #324960;
+}
+
+.fl-table tr:nth-child(even) {
+    background: #F8F8F8;
+}
+
+/* Responsive */
+
+@media (max-width: 767px) {
+    .fl-table {
+        display: block;
+        width: 100%;
+    }
+    .table-wrapper:before{
+        content: "Scroll horizontally >";
+        display: block;
+        text-align: right;
+        font-size: 11px;
+        color: white;
+        padding: 0 0 10px;
+    }
+    .fl-table thead, .fl-table tbody, .fl-table thead th {
+        display: block;
+    }
+    .fl-table thead th:last-child{
+        border-bottom: none;
+    }
+    .fl-table thead {
+        float: left;
+    }
+    .fl-table tbody {
+        width: auto;
+        position: relative;
+        overflow-x: auto;
+    }
+    .fl-table td, .fl-table th {
+        padding: 20px .625em .625em .625em;
+        height: 60px;
+        vertical-align: middle;
+        box-sizing: border-box;
+        overflow-x: hidden;
+        overflow-y: auto;
+        width: 120px;
+        font-size: 13px;
+        text-overflow: ellipsis;
+    }
+    .fl-table thead th {
+        text-align: left;
+        border-bottom: 1px solid #f7f7f9;
+    }
+    .fl-table tbody tr {
+        display: table-cell;
+    }
+    .fl-table tbody tr:nth-child(odd) {
+        background: none;
+    }
+    .fl-table tr:nth-child(even) {
+        background: transparent;
+    }
+    .fl-table tr td:nth-child(odd) {
+        background: #F8F8F8;
+        border-right: 1px solid #E6E4E4;
+    }
+    .fl-table tr td:nth-child(even) {
+        border-right: 1px solid #E6E4E4;
+    }
+    .fl-table tbody td {
+        display: block;
+        text-align: center;
+    }
+}
+@import url('https://fonts.googleapis.com/css?family=PT+Sans');
+
+body{
+  background: #fff;
+  font-family: 'PT Sans', sans-serif;
+}
+h2{
+  padding-top: 1.5rem;
+}
+a{
+  color: #333;
+}
+a:hover{
+  color: #da5767;
+  text-decoration: none;
+}
+.card{
+  border: 0.40rem solid #f8f9fa;
+  top: 10%;
+}
+.form-control{
+  background-color: #f8f9fa;
+  padding: 20px;
+  padding: 25px 15px;
+  margin-bottom: 1.3rem;
+}
+
+.form-control:focus {
+
+    color: #000000;
+    background-color: #ffffff;
+    border: 3px solid #da5767;
+    outline: 0;
+    box-shadow: none;
+
+}
+
+.btn{
+  padding: 0.6rem 1.2rem;
+  background: #da5767;
+  border: 2px solid #da5767;
+}
+.btn-primary:hover {
+
+    
+    background-color: #df8c96;
+    border-color: #df8c96;
+  transition: .3s;
+
+}
+    </style>
+</head>
+
+
+<body>
+    <h2>Meteorologist Sensor Data</h2>
+    <div class="table-wrapper">
+        <table class="fl-table">
+            <thead>
+                <tr>
+                    <th>Topography & Drainage</th>
+                    <th>Monsoon Intensity</th>
+                    <th>River Management</th>
+                    <th>Urbanization</th>
+                    <th>Deforestation</th>
+                    <th>Siltation</th>
+                    <th>Drainage Systems</th>
+                    <th>Encroachments</th>
+                    <th>Location</th>
+                    <th>Timestamp</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody id="sensorDataBody">
+                <!-- Sensor data will be dynamically populated here -->
+            </tbody>
+        </table>
+    </div>
+    <button onclick="showForm()">Add Sensor Data</button>
+
+    <div class="container" id="sensorFormContainer" style="display:none;">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <h2 class="card-title text-center">Sensor Data Form</h2>
+                    <div class="card-body py-md-4">
+                        <form id="sensorForm" onsubmit="saveSensorData(event)">
+                            <input type="hidden" id="sensorId">
+                            <div class="form-group">
+                                <label for="topographyDrainage">Topography & Drainage:</label>
+                                <input type="text" class="form-control" id="topographyDrainage" placeholder="Topography & Drainage" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="monsoonIntensity">Monsoon Intensity:</label>
+                                <input type="text" class="form-control" id="monsoonIntensity" placeholder="Monsoon Intensity" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="riverManagement">River Management:</label>
+                                <input type="text" class="form-control" id="riverManagement" placeholder="River Management" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="urbanization">Urbanization:</label>
+                                <input type="text" class="form-control" id="urbanization" placeholder="Urbanization" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="deforestation">Deforestation:</label>
+                                <input type="text" class="form-control" id="deforestation" placeholder="Deforestation" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="siltation">Siltation:</label>
+                                <input type="text" class="form-control" id="siltation" placeholder="Siltation" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="drainageSystems">Drainage Systems:</label>
+                                <input type="text" class="form-control" id="drainageSystems" placeholder="Drainage Systems" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="encroachments">Encroachments:</label>
+                                <input type="text" class="form-control" id="encroachments" placeholder="Encroachments" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="location">Location:</label>
+                                <input type="text" class="form-control" id="location" placeholder="Location" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="timestamp">Timestamp:</label>
+                                <input type="datetime-local" class="form-control" id="timestamp" required>
+                            </div>
+                            <div class="d-flex flex-row align-items-center justify-content-between">
+                                <button type="button" onclick="hideForm()" class="btn btn-secondary">Cancel</button>
+                                <button type="submit" class="btn btn-primary" id="submitBtn">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', loadSensorData);
+
+        const sensorFormContainer = document.getElementById('sensorFormContainer');
+        const sensorForm = document.getElementById('sensorForm');
+        const sensorDataBody = document.getElementById('sensorDataBody');
+
+
+        function showForm() {
+            sensorForm.reset();
+            sensorFormContainer.style.display = 'block';
+        }
+
+        function hideForm() {
+            sensorFormContainer.style.display = 'none';
+        }
+
+        function loadSensorData() {
+            fetch('http://localhost:3000/sensor-data')
+                .then(response => response.json())
+                .then(data => {
+                    sensorDataBody.innerHTML = '';
+                    data.forEach(sensor => {
+                        let row = `<tr>
+                            <td>${sensor.TopographyDrainage}</td>
+                            <td>${sensor.MonsoonIntensity}</td>
+                            <td>${sensor.RiverManagement}</td>
+                            <td>${sensor.Urbanization}</td>
+                            <td>${sensor.Deforestation}</td>
+                            <td>${sensor.Siltation}</td>
+                            <td>${sensor.DrainageSystems}</td>
+                            <td>${sensor.Encroachments}</td>
+                            <td>${sensor.Location}</td>
+                            <td>${sensor.Timestamp}</td>
+                            <td><button onclick="editSensorData(${sensor.SensorDataID})">Edit</button></td>
+                            <td><button onclick="deleteSensorData(${sensor.SensorDataID})">Delete</button></td>
+                        </tr>`;
+                        sensorDataBody.innerHTML += row;
+                    });
+                });
+        }
+
+        function saveSensorData(event) {
+            event.preventDefault();
+            const sensorId = document.getElementById('sensorId').value;
+            const sensor = {
+                TopographyDrainage: document.getElementById('topographyDrainage').value,
+                MonsoonIntensity: document.getElementById('monsoonIntensity').value,
+                RiverManagement: document.getElementById('riverManagement').value,
+                Urbanization: document.getElementById('urbanization').value,
+                Deforestation: document.getElementById('deforestation').value,
+                Siltation: document.getElementById('siltation').value,
+                DrainageSystems: document.getElementById('drainageSystems').value,
+                Encroachments: document.getElementById('encroachments').value,
+                Location: document.getElementById('location').value,
+                Timestamp: document.getElementById('timestamp').value
+            };
+
+            let url = 'http://localhost:3000/sensor-data';
+            let method = 'POST';
+            console.log(sensorId);
+            if (sensorId) {
+                // If sensorId is present, it's an update
+                url += `/${sensorId}`;
+                method = 'PUT';
+            }
+
+            fetch(url, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(sensor)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById('sensorDataForm').reset();
+            })
+            .catch(error => {
+                console.error('Error saving sensor data:', error);
+            });
+        }
+
+        function editSensorData(id) {
+            fetch(`http://localhost:3000/sensor-data/${id}`)
+                .then(response => response.json())
+                .then(sensors => {
+                    if (sensors.length > 0) {
+                    const  sensor =sensors[0];
+                    showForm();
+                    document.getElementById('sensorId').value = sensor.SensorDataID;
+                    document.getElementById('topographyDrainage').value = sensor.TopographyDrainage;
+                    document.getElementById('monsoonIntensity').value = sensor.MonsoonIntensity;
+                    document.getElementById('riverManagement').value = sensor.RiverManagement;
+                    document.getElementById('urbanization').value = sensor.Urbanization;
+                    document.getElementById('deforestation').value = sensor.Deforestation;
+                    document.getElementById('siltation').value = sensor.Siltation;
+                    document.getElementById('drainageSystems').value = sensor.DrainageSystems;
+                    document.getElementById('encroachments').value = sensor.Encroachments;
+                    document.getElementById('location').value = sensor.Location;
+                    document.getElementById('timestamp').value = sensor.Timestamp;
+                    } else {
+                        alert('Sensor data not found');
+                    }
+                })
+                .catch(error => console.error('Error fetching sensor data:', error));
+        }
+
+        function deleteSensorData(id) {
+            fetch(`http://localhost:3000/sensor-data/${id}`, {
+                method: 'DELETE'
+            }).then(() => loadSensorData());
+        }
+    </script>
+</body>
+
+
+</html>
