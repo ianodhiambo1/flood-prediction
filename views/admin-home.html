@@ -21,7 +21,7 @@ h2{
     font-size: 18px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: white;
+    color: rgb(0, 0, 0);
     padding: 30px 0;
 }
 
@@ -140,9 +140,7 @@ body{
   background: #fff;
   font-family: 'PT Sans', sans-serif;
 }
-h2{
-  padding-top: 1.5rem;
-}
+
 a{
   color: #333;
 }
@@ -185,8 +183,43 @@ a:hover{
 
 }
     </style>
+     <link href="css/application.css" rel="stylesheet">
 </head>
 <body>
+    <header>
+        <div class="nav-wrapper">
+          <div class="logo-container">
+            <a href="/admin-home"><img class="logo"
+                src="https://www.pngall.com/wp-content/uploads/2017/03/Flood-Free-PNG-Image.png" alt="Logo"></a>
+          </div>
+          <nav>
+            <input class="hidden" type="checkbox" id="menuToggle">
+            <label class="menu-btn" for="menuToggle">
+              <div class="menu"></div>
+              <div class="menu"></div>
+
+            </label>
+            <div class="nav-container">
+              <ul class="nav-tabs">
+                <a href="">
+                  <li class="nav-tab" id="username">Careers</li>
+                </a>
+    
+                <div class="navigation">
+    
+                  <a class="button" href="/logout-admin">
+                   
+                    <div class="logout">LOGOUT</div>
+    
+                  </a>
+    
+                </div>
+    
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </header>
     <h2>User Data</h2>
     <div class="table-wrapper">
         <table class="fl-table">
@@ -242,6 +275,44 @@ a:hover{
                 </div>
             </div>
         </div>
+    </div>
+
+    <h2>User Requests</h2>
+    <div class="table-wrapper">
+        <table class="fl-table" id="userRequestTable">
+            <thead>
+                <tr>
+                    <th>UserID</th>
+                    <th>Username</th>
+                    <th>PhoneNumber</th>
+                    <th>Location</th>
+                    <th>Urgency</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody id="userRequestTableBody">
+                <!-- User requests will be dynamically populated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <h2>Updates</h2>
+    <div class="table-wrapper">
+        <table class="fl-table" id="updatesTable">
+            <thead>
+                <tr>
+                    <th>UpdateID</th>
+                    <th>Username</th>
+                    <th>Location</th>
+                    <th>Updates</th>
+                    <th>Timestamp</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody id="updatesTableBody">
+                <!-- Updates will be dynamically populated here -->
+            </tbody>
+        </table>
     </div>
 
     <script>
@@ -326,6 +397,11 @@ function saveUser(event) {
         console.error('Error saving user:', error);
     });
 }
+fetch('/user')
+        .then(response => response.text())
+        .then(html => {
+          document.getElementById('username').innerHTML = html;
+        });
 
 
 
@@ -355,6 +431,64 @@ function deleteUser(id) {
     }).then(() => loadUsers());
 }
 
+document.addEventListener('DOMContentLoaded', loadTables);
+
+function loadTables() {
+    loadUserRequests();
+    loadUpdates();
+}
+
+function loadUserRequests() {
+    fetch('http://localhost:3000/user-requests')
+        .then(response => response.json())
+        .then(data => {
+            const userRequestTableBody = document.getElementById('userRequestTableBody');
+            userRequestTableBody.innerHTML = '';
+            data.forEach(request => {
+                let row = `<tr>
+                    <td>${request.UserID}</td>
+                    <td>${request.Username}</td>
+                    <td>${request.PhoneNumber}</td>
+                    <td>${request.Location}</td>
+                    <td>${request.Urgency}</td>
+                    <td><button onclick="deleteUserRequest(${request.UserID})">Delete</button></td>
+                </tr>`;
+                userRequestTableBody.innerHTML += row;
+            });
+        });
+}
+
+function loadUpdates() {
+    fetch('http://localhost:3000/updates')
+        .then(response => response.json())
+        .then(data => {
+            const updatesTableBody = document.getElementById('updatesTableBody');
+            updatesTableBody.innerHTML = '';
+            data.forEach(update => {
+                let row = `<tr>
+                    <td>${update.UpdateID}</td>
+                    <td>${update.Username}</td>
+                    <td>${update.Location}</td>
+                    <td>${update.Updates}</td>
+                    <td>${update.Timestamp}</td>
+                    <td><button onclick="deleteUpdate(${update.UpdateID})">Delete</button></td>
+                </tr>`;
+                updatesTableBody.innerHTML += row;
+            });
+        });
+}
+
+function deleteUserRequest(id) {
+    fetch(`http://localhost:3000/user-requests/${id}`, {
+        method: 'DELETE'
+    }).then(() => loadUserRequests());
+}
+
+function deleteUpdate(id) {
+    fetch(`http://localhost:3000/updates/${id}`, {
+        method: 'DELETE'
+    }).then(() => loadUpdates());
+}
     </script>
 </body>
 </html>

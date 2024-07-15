@@ -95,7 +95,7 @@ app.post("/auth", function (request, response) {
 
   if (username && password) {
     connection.query(
-      "SELECT * FROM Users WHERE Username = ?",
+      "SELECT * FROM users WHERE Username = ?",
       [username],
       function (error, results, fields) {
         if (error) {
@@ -212,12 +212,21 @@ app.post("/auth-met", function (request, response) {
     response.send("Please enter Username and Password!");
   }
 });
-app.get("/logout", (req, res) => {
+app.get("/logout-admin", (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       return res.status(500).send("Could not log out");
     } else {
       res.redirect("/admin-login");
+    }
+  });
+});
+app.get("/logout-met", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).send("Could not log out");
+    } else {
+      res.redirect("/met-login");
     }
   });
 });
@@ -587,6 +596,37 @@ app.delete('/sensor-data/:id', (req, res) => {
       if (err) {
           return res.status(500).send(err);
       }
+      res.send(result);
+  });
+});
+// Fetch user requests
+app.get('/user-requests', (req, res) => {
+  connection.query('SELECT * FROM UserRequest', (err, results) => {
+      if (err) return res.status(500).send(err);
+      res.send(results);
+  });
+});
+
+// Fetch updates
+app.get('/updates', (req, res) => {
+  connection.query('SELECT * FROM Updates', (err, results) => {
+      if (err) return res.status(500).send(err);
+      res.send(results);
+  });
+});
+
+// Delete user request
+app.delete('/user-requests/:id', (req, res) => {
+  connection.query('DELETE FROM UserRequest WHERE UserID = ?', [req.params.id], (err, result) => {
+      if (err) return res.status(500).send(err);
+      res.send(result);
+  });
+});
+
+// Delete update
+app.delete('/updates/:id', (req, res) => {
+  connection.query('DELETE FROM Updates WHERE UpdateID = ?', [req.params.id], (err, result) => {
+      if (err) return res.status(500).send(err);
       res.send(result);
   });
 });
