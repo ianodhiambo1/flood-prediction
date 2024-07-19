@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,minimum-scale=1">
+		<title>Login</title>
+        <!-- the form awesome library is used to add icons to our form -->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+        <!-- include the stylesheet file -->
+        <link href="static/style.css" rel="stylesheet" type="text/css">
+	</head>
+	<body>
+		<div class="form_wrapper">
+			<div class="form_container">
+				<div class="title_container">
+					<h2>Login</h2>
+				</div>
+				<div class="row clearfix">
+					<div class="">
+						<form action="/auth-admin" method="post">
+							<div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
+								<input type="text" name="username" placeholder="Username" required />
+							</div>
+							<div class="input_field"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+								<input id="password" type="password" name="password" placeholder="Password" required />
+							</div>
+							<input class="button" type="submit" value="Login" />
+							<h5>Don't have an account?<i> <a href="/signup">Sign up</a></i></h5>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
